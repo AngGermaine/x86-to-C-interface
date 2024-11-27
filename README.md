@@ -41,7 +41,7 @@ S17 MO2-Group 7
 ---
 
 ### Short Observation
-Each kernel's execution time increases linearly with the memory requirements, which scale based on the number of vector elements. It is also PC dependent, with execution times greatly reducing based on the amount of RAM available.
+Each kernel's execution time scales linearly based on the size of the vector; the greater the size of the vector, the longer it takes to execute a kernel. It is also PC dependent, with execution times greatly reducing based on the amount of RAM available.
 
 ---
 
