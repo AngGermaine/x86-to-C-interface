@@ -3,7 +3,6 @@ global calculate_dx_asm
 global calculate_dy_asm
 global calculate_z_asm
 ; Function to calculate dx = x2 - x1
-; double calculate_dx_asm(double *x1, double *x2, double *dx, int n)
 calculate_dx_asm:
     mov rsi, rcx ; rsi = x1
     mov rdi, rdx ; rdi = x2
@@ -24,7 +23,6 @@ calculate_dx_loop:
 calculate_dx_done:
     ret
 ; Function to calculate dy = y2 - y1
-; double calculate_dy_asm(double *y1, double *y2, double *dy, int n)
 calculate_dy_asm:
     mov rsi, rcx ; rsi = y1
     mov rdi, rdx ; rdi = y2
@@ -45,7 +43,6 @@ calculate_dy_loop:
 calculate_dy_done:
     ret
 ; Function to calculate z = sqrt(dx^2 + dy^2)
-; double calculate_z_asm(double *dx, double *dy, double *z, int n)
 calculate_z_asm:
     mov rsi, rcx ; rsi = dx
     mov rdi, rdx ; rdi = dy
