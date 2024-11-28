@@ -58,9 +58,7 @@ Calculation of the Distance between Two Points
 ASM executiontimes are faster compared to the equivalent C functions. Each kernel's execution time scales linearly with the size of the vector and the associated memory requirements. The greater the vector size, the longer it takes to execute the kernel. Performance is also PC dependent, with execution times being significantly faster on systems with more powerful processors and sufficient RAM to handle the memory requirements efficiently.
 
 ---
-
-![image](https://github.com/user-attachments/assets/92b22e00-f7a1-40bf-9b2d-16dcf6cac19d)
-
-![image](https://github.com/user-attachments/assets/e01ca916-e10e-4034-841e-99c6330e9897)
-
-![image](https://github.com/user-attachments/assets/4d115625-8d38-4c55-9a44-467000072e70)
+![image](https://github.com/user-attachments/assets/bcb000f9-3a56-4cba-88bc-49855437d085)
+![image](https://github.com/user-attachments/assets/7535f32c-58dc-43df-aba4-3017abe7c4db)
+![image](https://github.com/user-attachments/assets/da2e1b8d-51fc-44f8-8a6b-fb4b0d6ea20c)
+![image](https://github.com/user-attachments/assets/a532c3f4-db3a-4a66-b42f-9f5d9158a289)
