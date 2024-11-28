@@ -53,6 +53,74 @@ void print_vectors_inline(const char *name, float *x1, float *x2, float *y1, flo
 }
 int main() {
     int i, j;
+    
+    // Prompt for input size and vectors from the user
+    int n;
+    printf("Enter the number of elements for the input vectors (n): ");
+    scanf("%d", &n);
+
+    // Allocate memory for user input vectors and results
+    float *x1 = (float *)malloc(n * sizeof(float));
+    float *x2 = (float *)malloc(n * sizeof(float));
+    float *y1 = (float *)malloc(n * sizeof(float));
+    float *y2 = (float *)malloc(n * sizeof(float));
+    float *dx = (float *)malloc(n * sizeof(float));
+    float *dy = (float *)malloc(n * sizeof(float));
+    float *z = (float *)malloc(n * sizeof(float));
+
+    // Input the x1, x2, y1, and y2 vectors
+    printf("Enter elements for vector x1:\n");
+    for (i = 0; i < n; i++) {
+        printf("x1[%d]: ", i);
+        scanf("%f", &x1[i]);
+    }
+
+    printf("Enter elements for vector x2:\n");
+    for (i = 0; i < n; i++) {
+        printf("x2[%d]: ", i);
+        scanf("%f", &x2[i]);
+    }
+
+    printf("Enter elements for vector y1:\n");
+    for (i = 0; i < n; i++) {
+        printf("y1[%d]: ", i);
+        scanf("%f", &y1[i]);
+    }
+
+    printf("Enter elements for vector y2:\n");
+    for (i = 0; i < n; i++) {
+        printf("y2[%d]: ", i);
+        scanf("%f", &y2[i]);
+    }
+
+    // Perform calculations using assembly functions
+    calculate_dx_asm(x1, x2, dx, n);
+    calculate_dy_asm(y1, y2, dy, n);
+    calculate_z_asm(dx, dy, z, n);
+
+    // Print the calculated vector z
+    printf("\nCalculated vector Z using ASM:\n");
+    for (i = 0; i < n; i++) {
+        printf("z[%d] = %.5f (dx = %.2f, dy = %.2f)\n", i, z[i], dx[i], dy[i]);
+    }
+
+    // Free allocated memory
+    free(x1);
+    free(x2);
+    free(y1);
+    free(y2);
+    free(dx);
+    free(dy);
+    free(z);
+    
+    
+    
+    
+    
+    
+    
+    
+    
     int sizes[] = {1 << 20, 1 << 24, 1 << 26}; // Test sizes: 2^20, 2^24, 2^30
     int iterations = 30;
 
@@ -78,6 +146,8 @@ int main() {
         randomize_vector(x2, n);
         randomize_vector(y1, n);
         randomize_vector(y2, n);
+        
+        
 
         // Time the kernel execution
         clock_t start, end;
@@ -90,11 +160,16 @@ int main() {
             // Perform calculations using assembly functions
             calculate_dx_asm(x1, x2, dx, n);
             calculate_dy_asm(y1, y2, dy, n);
+            
             calculate_z_asm(dx, dy, z, n);
 
             end = clock();
             total_time += (float)(end - start) / CLOCKS_PER_SEC;
         }
+			int k;
+            for (k = 0; k < 10; k++) {
+   				 printf("dx[%d] = %.1f || dy[%d] = %.1f\n", k, dx[k], k, dy[k]);
+			}
 
         // Print the first 10 elements of z (which is the result of sqrt(dx^2 + dy^2))
         printf("\nFirst 10 elements of vector Z (using ASM, size = %d):\n", n);
@@ -107,20 +182,34 @@ int main() {
 
         printf("\nSANITY CHECK....\nC CALCULATIONS...\n", n);
 
-        // Now check the C implementation for correctness
+
+		// Now check the C implementation for correctness
         float *dx_c = (float *)malloc(n * sizeof(float));
         float *dy_c = (float *)malloc(n * sizeof(float));
         float *z_c = (float *)malloc(n * sizeof(float));
 
-        // Run the C version of the calculations
-        calculate_dx_c(x1, x2, dx_c, n);
-        calculate_dy_c(y1, y2, dy_c, n);
-        calculate_z_c(dx_c, dy_c, z_c, n);
+		clock_t c_start, c_end;
+        float c_total_time = 0.0;
+		for (i = 0; i < iterations; i++) {
+            c_start = clock();
+
+            // Run the C version of the calculations
+        	calculate_dx_c(x1, x2, dx_c, n);
+        	calculate_dy_c(y1, y2, dy_c, n);
+        	calculate_z_c(dx_c, dy_c, z_c, n);
+
+            c_end = clock();
+            c_total_time += (float)(c_end - c_start) / CLOCKS_PER_SEC;
+        }
+        
 
      	printf("DONE CALCULATING IN C!\n", n);
      	
      	printf("\nFirst 10 elements of vector Z (C calculation, size = %d):\n", n);
         print_vectors_inline("vectors (C)", x1, x2, y1, y2, z_c, n);
+        float c_avg_time = c_total_time / iterations;
+        printf("Average execution time for %d elements (using C): %.6f seconds\n", n, c_avg_time);
+        printf("Total execution time for %d elements (using C): %.6f seconds\n", n, c_total_time);
 
         // Check if the results from C and ASM are close enough (considering possible floating point precision)
         int match = 1;
@@ -154,4 +243,5 @@ int main() {
 
     return 0;
 }
+
 
