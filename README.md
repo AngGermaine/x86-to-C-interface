@@ -17,8 +17,12 @@ Calculation of the Distance between Two Points
 
 ### **Kernel 1**
 - **Vector Size**: 1,048,576 elements (2<sup>20</sup>)
-- **Average Execution Time**: 0.007767 seconds / 0.002500 seconds
-- **Total Execution Time**: 0.233000 seconds /  0.075000 seconds
+- **Average Execution Time**:
+  - ASM: 0.007767 seconds / 0.002500 seconds
+  - C: 0.034800 seconds
+- **Total Execution Time**: 
+  - ASM: 0.233000 seconds /  0.075000 seconds
+  - C: 1.044000 seconds
 - **Memory Requirement**: 
   - 7 arrays × 2<sup>20</sup> × 4 bytes = **28 MB**
 
@@ -26,8 +30,12 @@ Calculation of the Distance between Two Points
 
 ### **Kernel 2**
 - **Vector Size**: 16,777,216 elements (2<sup>24</sup>)
-- **Average Execution Time**: 0.064833 seconds / 0.040933 seconds
-- **Total Execution Time**: 1.945000 seconds / 1.228000 seconds
+- **Average Execution Time**: 
+  - ASM: 0.064833 seconds / 0.040933 seconds
+  - C: 0.557367 seconds
+- **Total Execution Time**: 
+  - ASM: 1.945000 seconds / 1.228000 seconds
+  - C: 16.721001 seconds
 - **Memory Requirement**: 
   - 7 arrays × 2<sup>24</sup> × 4 bytes = **448 MB**
 
@@ -35,15 +43,19 @@ Calculation of the Distance between Two Points
 
 ### **Kernel 3**
 - **Vector Size**: 67,108,864 elements (2<sup>26</sup>)
-- **Average Execution Time**: 0.432133 seconds / 0.162767 seconds
-- **Total Execution Time**: 12.964002 seconds / 4.882999 seconds
+- **Average Execution Time**: 
+  - ASM: 0.432133 seconds / 0.162767 seconds
+  - C: 2.411267 seconds
+- **Total Execution Time**:
+  - ASM: 12.964002 seconds / 4.882999 seconds
+  - C: 72.388005 seconds
 - **Memory Requirement**: 
   - 7 arrays × 2<sup>26</sup> × 4 bytes = **1792 MB** (≈ 1.75 GB)
 
 ---
 
 ### Short Observation
-Each kernel's execution time scales linearly with the size of the vector and the associated memory requirements. The greater the vector size, the longer it takes to execute the kernel. Performance is also PC dependent, with execution times being significantly faster on systems with more powerful processors and sufficient RAM to handle the memory requirements efficiently.
+ASM executiontimes are faster compared to the equivalent C functions. Each kernel's execution time scales linearly with the size of the vector and the associated memory requirements. The greater the vector size, the longer it takes to execute the kernel. Performance is also PC dependent, with execution times being significantly faster on systems with more powerful processors and sufficient RAM to handle the memory requirements efficiently.
 
 ---
 
